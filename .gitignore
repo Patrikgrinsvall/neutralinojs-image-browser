@@ -12,3 +12,4 @@ neutralino.js
 .storage
 *.log
 .tmp
+neutralino.config.js

@@ -1,2 +1,8 @@
-Copyright Patrik Grinsvall
-This code and its compiled binery may be used without warrany for any purpose.
+Neutralinojs Image Viewer, Copyright 20204, Patrik Grinsvall <patrik.grinsvall@gmail.com> https://github.com/patrikgrinsvall
+This code, its compiled binaries and any fork of this code may be used without warrany for any purpose as long as this license file is present or the autor is credited and source is provided.
+
+Neutralinojs Core is MIT but it bundles other third party libraries, see license at: https://github.com/neutralinojs/neutralinojs/blob/main/LICENSE
+
+Tailwindcss is MIT, https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE
+
+No other libraries, code or third party licenses is used. 
