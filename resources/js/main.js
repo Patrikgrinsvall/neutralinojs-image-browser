@@ -229,9 +229,11 @@ function toggleFullScreen(event) {
 
 function startSlideshow() {
     // Set fullscreen for the first image
-    const imgs = fileList.querySelectorAll("img");
+    const imgs = imagePaths;//fileList.querySelectorAll("img");
     if (imgs.length > 0) {
-        toggleFullScreen({ currentTarget: imgs[0] });
+        //toggleFullScreen({ currentTarget: imgs[0] });
+        console.log("first image",imgs[0])
+        showFullScreen(imgs[0])
     }
 
     let currentIndex = 0;
@@ -249,10 +251,80 @@ function startSlideshow() {
         } else {
             currentIndex = (currentIndex + 1) % imgs.length;
         }
-        toggleFullScreen({ currentTarget: imgs[currentIndex] });
+        //toggleFullScreen({ currentTarget: imgs[currentIndex] });
+        showFullScreen(imgs[currentIndex],`${currentIndex} / ${imgs.length}`);
     }, duration);
 }
+function showFullScreen(urlOrPath, extra="") {
+    // Remove any existing fullscreen image
+    let existingFullScreenImg = document.querySelector("img.fullscreen");
+    if (existingFullScreenImg) {
+        existingFullScreenImg.remove();
+        URL.revokeObjectURL(existingFullScreenImg.src); // Clean up the object URL
+    }
+    const filename = urlOrPath.split('/').pop();
+    let filenameDisplay = document.getElementById("filenameDisplay");
+    if (!filenameDisplay) {
+        filenameDisplay = document.createElement("div");
+        filenameDisplay.id = "filenameDisplay";
+        filenameDisplay.style.position = "absolute";
+        filenameDisplay.style.top = "10px";
+        filenameDisplay.style.left = "10px";
+        filenameDisplay.style.color = "white";
+        filenameDisplay.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+        filenameDisplay.style.padding = "5px 10px";
+        filenameDisplay.style.borderRadius = "5px";
+        filenameDisplay.style.zIndex = "9999"; // Higher than the fullscreen image
+        document.body.appendChild(filenameDisplay);
+    }
 
+    // Update the filename display with the current filename
+    filenameDisplay.innerText = `${filename} - ${extra}`;
+    // Create a new image element
+    const img = document.createElement("img");
+    img.classList.add("fullscreen");
+    img.style.height = "100%";
+    img.style.position = "fixed";
+    img.style.top = "50%";
+    img.style.left = "50%";
+    img.style.transform = "translate(-50%, -50%)";
+    img.style.zIndex = "1000";
+
+    // Load the image from the given URL or local path
+    if (urlOrPath.startsWith("http") || urlOrPath.startsWith("data:")) {
+        img.src = urlOrPath; // Load from URL
+    } else {
+        // Load from local path
+        Neutralino.filesystem.readBinaryFile(urlOrPath).then(arrayBuffer => {
+            const blob = new Blob([arrayBuffer]);
+            img.src = URL.createObjectURL(blob);
+        }).catch(error => {
+            console.error("Error loading image:", error);
+        });
+    }
+
+    // Add the new image to the document
+    document.body.appendChild(img);
+
+    // Create overlay and show controls
+    enableOverlay();
+    toolbar.classList.toggle("h-fit");
+    toolbar.classList.toggle("h-0");
+
+    // Add event listener to close fullscreen on double-click
+    img.addEventListener("dblclick", () => {
+        img.remove();
+        disableOverlay();
+        toolbar.classList.toggle("h-fit");
+        toolbar.classList.toggle("h-0");
+               if (filenameDisplay) {
+            filenameDisplay.style.display = "none"; // Hide filename display
+        }
+    });
+      if (filenameDisplay) {
+        filenameDisplay.style.display = "block";
+    }
+}
 function stopSlideshow() {
     clearInterval(slideshowInterval);
     slideshowInterval = null;

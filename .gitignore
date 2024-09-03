@@ -13,3 +13,5 @@ neutralino.js
 *.log
 .tmp
 neutralino.config.js
+.idea
+neutralino.config.json
