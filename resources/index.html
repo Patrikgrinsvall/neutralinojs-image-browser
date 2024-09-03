@@ -21,6 +21,7 @@
 
 <body>
   <div id="neutralinoapp" class="flex flex-col text-center h-full w-full gap-2">
+    <div id="imageInfo" class="absolute top-20 left-2 px-4 py-2 w-50 bg-black/75 h-fit text-white rounded-lg shadow-lg" style="z-index: 9999"></div>
     <div id="toolbar"
       class="fixed top-0 h-fit bg-gray-300 flex flex-row gap-2 items-center z-50 transition-all duration-500 w-screen p-2">
       <div>Image Gallery</div>
@@ -71,6 +72,7 @@
         </div>
       </div>
     </div>
+
     <div id="fileList" class="bg-gray-100 text-center flex flex-nowrap items-start gap-2 pt-[100px]"></div>
   </div>
   <script src="/js/neutralino.js"></script>

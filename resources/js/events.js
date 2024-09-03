@@ -1,6 +1,6 @@
 import { handleDirSelectClick, handleFileSelectClick, handleFiles } from './fileHandling.js';
 import {updateImageSize, showPreviousPage, showNextPage, updateImagesPerPage, disableOverlay} from './ui.js';
-import { startSlideshow } from './slideshow.js';
+import { startSlideshow,slideshowInterval } from './slideshow.js';
 
 export function setupEventListeners() {
     const dirSelect = document.getElementById("selectDirButton");
@@ -31,6 +31,9 @@ function handleKeyDown(event) {
             if(img.classList.contains("fullscreen")){
                 img.remove();
                 disableOverlay();
+            }
+            if(slideshowInterval){
+                    clearInterval(slideshowInterval);
             }
           });
         disableOverlay();

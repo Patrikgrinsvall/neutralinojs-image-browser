@@ -2,10 +2,9 @@
 
 import { enableOverlay, disableOverlay, createImageElement } from './ui.js';
 import { imagePaths } from './fileHandling.js';
-let slideshowInterval = null;
+export let slideshowInterval = null;
 
 export function startSlideshow() {
-    const imagePaths = []; // Load this from a shared state or pass as a parameter
     const duration = parseInt(document.getElementById("durationInput").value, 10) * 1000;
     const random = document.getElementById("randomCheckbox").checked;
 
@@ -22,6 +21,7 @@ export function startSlideshow() {
             currentIndex = (currentIndex + 1) % imagePaths.length;
         }
         showFullScreen(imagePaths[currentIndex]);
+        document.getElementById("imageInfo").innerText=`${imagePaths[currentIndex]} - ${currentIndex} / ${imagePaths.length}`;
     }, duration);
 }
 
@@ -43,6 +43,7 @@ function showFullScreen(urlOrPath) {
         Neutralino.filesystem.readBinaryFile(urlOrPath).then(arrayBuffer => {
             const blob = new Blob([arrayBuffer]);
             img.src = URL.createObjectURL(blob);
+
         }).catch(error => {
             console.error("Error loading image:", error);
         });
