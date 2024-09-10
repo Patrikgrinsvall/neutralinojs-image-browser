@@ -5,10 +5,14 @@ import {toast} from './toast.js'
 
 
 import {createOverlay} from './ui.js';
+
+
+
 Neutralino.init();
 
 
 Neutralino.events.on("windowClose", onWindowClose);
+
 function extractEncodedPath() {
     // Get the current URL's hash part
     const hash = window.location.hash;
@@ -28,10 +32,17 @@ function extractEncodedPath() {
     }
 }
 
-Neutralino.events.on("ready", () => {
+Neutralino.events.on("ready", async () => {
 
-    const path = extractEncodedPath();
+    let path = extractEncodedPath();
 
+
+    let args = String(NL_ARGS);
+    if (args.includes(",")) {
+        args = args.slice(args.lastIndexOf(",") + 1);
+        let e = await Neutralino.filesystem.getStats(args);
+        if (e) path = args;
+    }
     if (path !== null) {
         readDirectory(path);
     } else {
