@@ -40,8 +40,11 @@ Neutralino.events.on("ready", async () => {
     let args = String(NL_ARGS);
     if (args.includes(",")) {
         args = args.slice(args.lastIndexOf(",") + 1);
-        let e = await Neutralino.filesystem.getStats(args);
-        if (e) path = args;
+        if (args.startsWith("--") === false) {
+
+            let e = await Neutralino.filesystem.getStats(args);
+            if (e) path = args;
+        }
     }
     if (path !== null) {
         readDirectory(path);

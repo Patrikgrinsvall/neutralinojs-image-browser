@@ -8,7 +8,7 @@
   "url": "/",
   "enableServer": true,
   "enableNativeAPI": true,
-  "tokenSecurity": "one-time",
+  "tokenSecurity": "none",
   "logging": {
     "enabled": true,
     "writeToLogFile": true
@@ -19,14 +19,13 @@
     "debug.log",
     "filesystem.*"
   ],
-  
   "modes": {
     "window": {
-      "title": "Image Viewer Dev",
+      "title": "Image Browser",
       "width": 800,
       "height": 500,
-      "minWidth": 400,
-      "minHeight": 200,
+      "minWidth": 500,
+      "minHeight": 400,
       "center": true,
       "fullScreen": false,
       "alwaysOnTop": false,
@@ -37,18 +36,11 @@
       "hidden": false,
       "resizable": true,
       "exitProcessOnClose": false
-    },
-    
-    "cloud": {
-      "url": "/resources/#cloud",
-      "nativeAllowList": [
-        "app.*"
-      ]
     }
-    
+
   },
   "cli": {
-    "binaryName": "imageviewer",
+    "binaryName": "imbr",
     "resourcesPath": "/resources/",
     "extensionsPath": "/extensions/",
     "clientLibrary": "/resources/js/neutralino.js",

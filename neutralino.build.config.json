@@ -36,18 +36,11 @@
       "hidden": false,
       "resizable": true,
       "exitProcessOnClose": false
-    },
-    
-    "cloud": {
-      "url": "/resources/#cloud",
-      "nativeAllowList": [
-        "app.*"
-      ]
     }
-    
+
   },
   "cli": {
-    "binaryName": "imageviewer",
+    "binaryName": "imbr",
     "resourcesPath": "/resources/",
     "extensionsPath": "/extensions/",
     "clientLibrary": "/resources/js/neutralino.js",
