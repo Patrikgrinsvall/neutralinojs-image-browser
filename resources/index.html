@@ -2,86 +2,96 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>NeutralinoJs sample app</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    img.fullscreen {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: auto;
-      z-index: 1000;
-      object-fit: contain;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>NeutralinoJs sample app</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        img.fullscreen {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: auto;
+            z-index: 1000;
+            object-fit: contain;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="neutralinoapp" class="flex flex-col text-center h-full w-full gap-2">
-    <div id="imageInfo" class="absolute top-20 left-2 px-4 py-2 w-50 bg-black/75 h-fit text-white rounded-lg shadow-lg" style="z-index: 9999"></div>
+<div id="neutralinoapp" class="flex flex-col text-center h-full w-full gap-2">
+    <div id="imageInfo" class="absolute top-40 left-2 px-4 py-2 w-50 bg-black/75 h-fit text-white rounded-lg shadow-lg"
+         style="z-index: 9999"></div>
     <div id="toolbar"
-      class="fixed top-0 h-fit bg-gray-300 flex flex-row gap-2 items-center z-50 transition-all duration-500 w-screen p-2">
-      <div>Image Gallery</div>
-      <button id="selectDirButton"
-        class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">Select
-        directory</button>
-      <input type="file" id="fileElem" multiple accept="image/*" style="display:none" />
-      <button id="fileSelect"
-        class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">Select
-        some files</button>
-      <div id="controlsContainer" class="flex flex-row gap-2 items-center" style="display: none;">
-        <!-- Image Size Slider -->
-        <div class=" ">
-          <label for="sizeSlider">Image Size (%):</label>
-          <input type="range" id="sizeSlider" min="0" max="110" value="0" step="10">
-          <span id="sizeValue">100%</span>
+         class="  h-fit bg-gray-300 flex flex-row gap-2 items-center z-50 transition-all duration-500 w-screen p-2">
+        <div>Image Gallery</div>
+        <button id="selectDirButton"
+                class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
+            Select
+            directory
+        </button>
+        <input type="file" id="fileElem" multiple accept="image/*" style="display:none"/>
+        <button id="fileSelect"
+                class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
+            Select
+            some files
+        </button>
+        <div id="controlsContainer" class="flex flex-row gap-2 items-center" style="display: none;">
+            <!-- Image Size Slider -->
+            <div class=" ">
+                <label for="sizeSlider">Image Size (%):</label>
+                <input type="range" id="sizeSlider" min="0" max="110" value="10" step="10">
+                <span id="sizeValue">10%</span>
+            </div>
+            <!-- Pagination Controls -->
+            <div class=" ">
+                <button id="prevPage"
+                        class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
+                    Prev
+                    page
+                </button>
+            </div>
+            <div>
+                <label for="imagesPerPage">Images per page</label>
+                <input type="range" id="imagesPerPage" min="1" max="50" value="6" step="5">
+                <span id="imagesPerPageValue">6</span>
+            </div>
+            <div>
+                <button id="nextPage"
+                        class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
+                    Next
+                    page
+                </button>
+            </div>
+            <!-- Slideshow Button -->
+            <div class=" ">
+                <button id="slideshowButton"
+                        class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
+                    Slideshow
+                </button>
+            </div>
+            <!-- Slideshow Duration Input -->
+            <div class=" ">
+                <label for="durationInput">Duration (seconds):</label>
+                <input type="number" id="durationInput" value="3" min="1">
+            </div>
+            <!-- Random Slideshow Checkbox -->
+            <div class=" ">
+                <label for="randomCheckbox">Random:</label>
+                <input type="checkbox" id="randomCheckbox">
+            </div>
         </div>
-        <!-- Pagination Controls -->
-        <div class=" ">
-          <button id="prevPage"
-            class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">Prev
-            page</button>
-        </div>
-        <div>
-          <label for="imagesPerPage">Images per page</label>
-          <input type="range" id="imagesPerPage" min="1" max="50" value="6" step="5">
-          <span id="imagesPerPageValue">6</span>
-        </div>
-        <div>
-          <button id="nextPage"
-            class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">Next
-            page</button>
-        </div>
-        <!-- Slideshow Button -->
-        <div class=" ">
-          <button id="slideshowButton"
-            class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">Slideshow</button>
-        </div>
-        <!-- Slideshow Duration Input -->
-        <div class=" ">
-          <label for="durationInput">Duration (seconds):</label>
-          <input type="number" id="durationInput" value="3" min="1">
-        </div>
-        <!-- Random Slideshow Checkbox -->
-        <div class=" ">
-          <label for="randomCheckbox">Random:</label>
-          <input type="checkbox" id="randomCheckbox">
-        </div>
-      </div>
     </div>
-
     <div id="fileList" class="bg-gray-100 text-center flex flex-nowrap items-start gap-2 pt-[100px]"></div>
-  </div>
-  <script src="/js/neutralino.js"></script>
-  <script src="/js/main.js" type="module"></script>
-    <script src="/js/events.js" type="module"></script>
-    <script src="/js/slideshow.js" type="module"></script>
-  <script src="/js/fileHandling.js" type="module"></script>
-  <script src="/js/ui.js" type="module"></script>
-  <script src="/js/utils.js" type="module"></script>
+</div>
+<script src="/js/neutralino.js"></script>
+<script src="/js/main.js" type="module"></script>
+<script src="/js/events.js" type="module"></script>
+<script src="/js/slideshow.js" type="module"></script>
+<script src="/js/fileHandling.js" type="module"></script>
+<script src="/js/ui.js" type="module"></script>
+<script src="/js/utils.js" type="module"></script>
 </body>
 
 </html>

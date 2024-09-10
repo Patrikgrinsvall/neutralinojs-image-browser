@@ -43,7 +43,7 @@ export async function updatePagination(imagePaths) {
             const blob = new Blob([arrayBuffer]);
             img.src = URL.createObjectURL(blob);
         } catch (error) {
-            console.error("Error loading image:", imagePaths[i]);
+            console.log("Error loading image:", imagePaths[i]);
         }
     }
     updateImageSize();
@@ -51,7 +51,7 @@ export async function updatePagination(imagePaths) {
 
 export function createImageElement() {
     const img = document.createElement("img");
-    img.classList.add("opacity-0", "transition-all", "duration-500", "border-2", "border-black", "border-solid", "rounded", "shadow");
+    img.classList.add("opacity-0", "transition-all", "duration-500", "border-2", "border-black", "border-solid", "rounded", "shadow","w-fit");
     img.addEventListener("dblclick", toggleFullScreen);
     img.onload = () => {
         img.classList.remove("opacity-0");

@@ -25,18 +25,6 @@ export function setupEventListeners() {
 }
 
 function handleKeyDown(event) {
-    if (event.key === "Escape") {
-        const imgs = document.querySelectorAll("img")
-        imgs.forEach(img => {
-            if(img.classList.contains("fullscreen")){
-                img.remove();
-                disableOverlay();
-            }
-            if(slideshowInterval){
-                    clearInterval(slideshowInterval);
-            }
-          });
-        disableOverlay();
-    }
+  
 
 }

@@ -19,6 +19,13 @@ export async function handleDirSelectClick() {
     }
 }
 
+export  async function  readDirectory(dir){
+    const files = await Neutralino.filesystem.readDirectory(dir);
+    imagePaths = [];
+    processFiles(files);
+    updatePagination(imagePaths);
+    toggleControlsVisibility(imagePaths);
+}
 
 export function handleFileSelectClick(event) {
     event.preventDefault();
@@ -42,4 +49,13 @@ async function processFiles(files) {
             imagePaths.push(file.path);
         }
     }
+}
+function getDirectoryPath(filePath) {
+    // Find the last occurrence of the forward slash `/`
+    const lastSlashIndex = filePath.lastIndexOf('/');
+
+    // Extract the substring from the start to the last slash index
+    const dirPath = filePath.substring(0, lastSlashIndex);
+
+    return dirPath;
 }
