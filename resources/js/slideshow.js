@@ -1,7 +1,6 @@
 // slideshow.js
 
-import {createImageElement, disableOverlay, enableOverlay} from './ui.js';
-import {imagePaths} from './fileHandling.js';
+import { createImageElement, disableOverlay, enableOverlay, imagePaths } from './index.js';
 
 export let slideshowInterval = null;
 
@@ -166,7 +165,7 @@ async function handleKeyboardNavigation(event) {
             //     .catch(error => {
             //         console.log("Error running process:", error, ratingCommand);
             //     });
-            let ratingText = `Rating ${String(event.key)} `
+            let ratingText = `New Rating ${String(event.key)} `
             for (let i = 1; i <= event.key; i++) ratingText += "⭐"
             if (event.key === 0) ratingText += "⭙";
             currentIndex = (currentIndex + 1) % imagePaths.length;
@@ -303,7 +302,7 @@ function showFullScreen(urlOrPath) {
             img.classList.remove("opacity-0");
             img.classList.add("opacity-100");
             setTimeout(() => URL.revokeObjectURL(img.src), 1000);  // Delay revoking for 1 second
-//     };
+            //     };
         }
 
         document.body.appendChild(img);

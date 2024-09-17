@@ -4,19 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>NeutralinoJs sample app</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        img.fullscreen {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: auto;
-            z-index: 1000;
-            object-fit: contain;
-        }
+
     </style>
+    <link type="style" href="/dist.css"/>
 </head>
 
 <body>
@@ -26,17 +17,21 @@
     <div id="toolbar"
          class="  h-fit bg-gray-300 flex flex-row gap-2 items-center z-50 transition-all duration-500 w-screen p-2">
         <div>Image Gallery</div>
-        <button id="selectDirButton"
-                class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
-            Select
-            directory
+       
+        <button type="button" id="selectDirButton" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          Select directory
+          <!-- Heroicon name: mini/envelope -->
+          <!-- <svg class=" h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
+            <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
+          </svg> -->
         </button>
-        <input type="file" id="fileElem" multiple accept="image/*" style="display:none"/>
+        <!-- <input type="file" id="fileElem" multiple accept="image/*" style="display:none"/>
         <button id="fileSelect"
                 class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
             Select
             some files
-        </button>
+        </button> -->
         <div id="controlsContainer" class="flex flex-row gap-2 items-center" style="display: none;">
             <!-- Image Size Slider -->
             <div class=" ">
@@ -87,11 +82,6 @@
 </div>
 <script src="/js/neutralino.js"></script>
 <script src="/js/main.js" type="module"></script>
-<script src="/js/events.js" type="module"></script>
-<script src="/js/slideshow.js" type="module"></script>
-<script src="/js/fileHandling.js" type="module"></script>
-<script src="/js/ui.js" type="module"></script>
-<script src="/js/utils.js" type="module"></script>
 </body>
 
 </html>

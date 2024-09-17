@@ -1,11 +1,4 @@
-// main.js
-import {setupEventListeners} from './events.js';
-import {readDirectory} from './fileHandling.js';
-import {toast} from './toast.js'
-
-
-import {createOverlay} from './ui.js';
-
+import { setupEventListeners, readDirectory, toast, createOverlay } from './index.js';
 
 
 Neutralino.init();

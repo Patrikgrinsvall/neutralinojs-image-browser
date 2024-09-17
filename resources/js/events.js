@@ -1,6 +1,4 @@
-import { handleDirSelectClick, handleFileSelectClick, handleFiles } from './fileHandling.js';
-import {updateImageSize, showPreviousPage, showNextPage, updateImagesPerPage, disableOverlay} from './ui.js';
-import { startSlideshow,slideshowInterval } from './slideshow.js';
+import { handleDirSelectClick, handleFileSelectClick, handleFiles,updateImageSize, showPreviousPage, showNextPage, updateImagesPerPage, disableOverlay,startSlideshow,slideshowInterval  } from './index.js';
 
 export function setupEventListeners() {
     const dirSelect = document.getElementById("selectDirButton");
@@ -13,8 +11,8 @@ export function setupEventListeners() {
     const slideshowButton = document.getElementById("slideshowButton");
 
     dirSelect.addEventListener("click", handleDirSelectClick);
-    fileSelect.addEventListener("click", handleFileSelectClick);
-    fileElem.addEventListener("change", handleFiles);
+    //fileSelect.addEventListener("click", handleFileSelectClick);
+ // fileElem.addEventListener("change", handleFiles);
     sizeSlider.addEventListener("input", updateImageSize);
     prevPage.addEventListener("click", showPreviousPage);
     nextPage.addEventListener("click", showNextPage);

@@ -1,6 +1,6 @@
 // fileHandling.js
 
-import { updatePagination, toggleControlsVisibility } from './ui.js';
+import { updatePagination, toggleControlsVisibility } from './index.js'
 
 export let imagePaths = [];
 
