@@ -20,11 +20,14 @@ export async function handleDirSelectClick() {
 }
 
 export  async function  readDirectory(dir){
-    const files = await Neutralino.filesystem.readDirectory(dir);
-    imagePaths = [];
-    processFiles(files);
-    updatePagination(imagePaths);
-    toggleControlsVisibility(imagePaths);
+    try {
+        const files = await Neutralino.filesystem.readDirectory(dir);
+          imagePaths = processFiles(files);
+        updatePagination(imagePaths);
+        toggleControlsVisibility(imagePaths);
+    } catch (error) {
+        console.error("Failed to read directory:", error);
+    }
 }
 
 export function handleFileSelectClick(event) {

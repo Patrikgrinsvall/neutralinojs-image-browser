@@ -22,10 +22,8 @@
   "modes": {
     "window": {
       "title": "Image Browser",
-      "width": 800,
-      "height": 500,
-      "minWidth": 500,
-      "minHeight": 400,
+      "width": 1200,
+      "height": 800,
       "center": true,
       "fullScreen": false,
       "alwaysOnTop": false,

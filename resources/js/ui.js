@@ -1,9 +1,8 @@
-// ui.js
+import { imagePaths } from './index.js';
 
 let currentPage = 0;
 let imagesPerPage = parseInt(document.getElementById("imagesPerPage").value, 10);
 let overlayElement = null;
-import { imagePaths } from './index.js';
 
 export function createOverlay() {
     overlayElement = document.createElement('div');

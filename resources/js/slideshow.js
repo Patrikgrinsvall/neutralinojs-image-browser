@@ -277,7 +277,7 @@ function showFullScreen(urlOrPath) {
 
     const img = createImageElement();
     img.classList.add("fullscreen");
-    img.classList.add("opacity-0");
+    img.classList.add("opacity-0","transition-all","duration-500","bg-blend-hue");
     img.classList.remove("opacity-100");
     img.style = `
         height: 100%;

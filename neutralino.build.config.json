@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
-  "applicationId": "js.neutralino.image-browser",
+  "applicationId": "js.neutralino.imbr",
   "version": "1.0.0",
   "defaultMode": "window",
   "port": 0,
@@ -8,7 +8,7 @@
   "url": "/",
   "enableServer": true,
   "enableNativeAPI": true,
-  "tokenSecurity": "one-time",
+  "tokenSecurity": "none",
   "logging": {
     "enabled": false,
     "writeToLogFile":false
@@ -16,21 +16,21 @@
   "nativeAllowList": [
     "app.*",
     "os.*",
-    "filesystem.*"
+    "filesystem.*",
+    "debug.log"
+
   ],
   
   "modes": {
-    "window": {
-      "title": "Image Viewer",
-      "width": 800,
-      "height": 500,
-      "minWidth": 400,
-      "minHeight": 200,
+"window": {
+      "title": "Image Browser",
+      "width": 1200,
+      "height": 800,
       "center": true,
       "fullScreen": false,
       "alwaysOnTop": false,
       "icon": "/resources/icons/appIcon.png",
-      "enableInspector": true,
+      "enableInspector": false,
       "borderless": false,
       "maximize": false,
       "hidden": false,

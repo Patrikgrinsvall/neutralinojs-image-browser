@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Update the NeutralinoJS project
-npx @neutralinojs/neu update
+#npx @neutralinojs/neu update
 
 # Replace the current configuration file with the development configuration
 unlink neutralino.config.json &> /dev/null
