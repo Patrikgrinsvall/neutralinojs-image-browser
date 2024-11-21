@@ -103,6 +103,7 @@ export async function createConfigEditor(config = null, saveCallback) {
         form.appendChild(inputWrapper);
     });
 
+    /* <kbd accesskey="1" class=" p-2 bg-gray-300 rounded-md border-2 border-gray-400 mono bold shadow-lg text-gray-800 ">1</kbd> */
     const saveButton = document.createElement('button');
     saveButton.type = 'button';
     saveButton.textContent = 'Save';
@@ -115,7 +116,36 @@ export async function createConfigEditor(config = null, saveCallback) {
 
     form.appendChild(saveButton);
     form.appendChild(cancelButton);
+    const addWrapper = document.createElement('div');
+    addWrapper.className = 'config-adder';
 
+    const keyInput = document.createElement('input');
+    keyInput.placeholder = 'Key';
+    keyInput.id = 'newConfigKey';
+
+    const valueInput = document.createElement('input');
+    valueInput.placeholder = 'Value';
+    valueInput.id = 'newConfigValue';
+
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Add';
+    addButton.type = 'button';
+    addButton.onclick = () => {
+        const key = keyInput.value.trim();
+        const value = valueInput.value.trim();
+        if (key && value) {
+            // Add new key-value pair to the config and update the UI dynamically
+            window.imConfig[key] = value; // Update global config object
+            keyInput.value = ''; // Clear the input after adding
+            valueInput.value = ''; // Clear the input after adding
+            addConfigInputPair(form, key, value); // Update the form to show the new key-value pair
+        }
+    };
+
+    addWrapper.appendChild(keyInput);
+    addWrapper.appendChild(valueInput);
+    addWrapper.appendChild(addButton);
+    form.appendChild(addWrapper);
     modal.appendChild(form);
     backdrop.appendChild(modal);
     document.body.appendChild(backdrop);
@@ -140,7 +170,8 @@ export async function createConfigEditor(config = null, saveCallback) {
         backdrop.classList.add = 'block';
         backdrop.classList.remove = 'hidden';
     };
-} export function createFromForm(formElement) {
+} 
+export function createFromForm(formElement) {
     const config = {};
     Array.from(formElement.elements).forEach(element => {
         if (element.name) {  // Checking if the element has a name attribute
@@ -151,7 +182,23 @@ export async function createConfigEditor(config = null, saveCallback) {
     });
     return config;
 }
+function addConfigInputPair(parent, key, value) {
+    const inputWrapper = document.createElement('div');
 
+    const label = document.createElement('label');
+    label.textContent = key;
+    label.for = key;
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = key;
+    input.name = key;
+    input.value = value;
+
+    inputWrapper.appendChild(label);
+    inputWrapper.appendChild(input);
+    parent.appendChild(inputWrapper);
+}
 export function createFromAllInputs() {
     const config = {};
     document.querySelectorAll('input, select, textarea').forEach(element => {
@@ -162,3 +209,92 @@ export function createFromAllInputs() {
     });
     return config;
 }
+export async function createShortcutEditor(shortcuts = {}) {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'modal-backdrop';
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+
+    const form = document.createElement('form');
+
+    Object.keys(shortcuts).forEach(key => {
+        const shortcutWrapper = document.createElement('div');
+
+        const shortcutInput = document.createElement('input');
+        shortcutInput.value = key;
+        shortcutInput.addEventListener('focus', function () {
+            Mousetrap.bind('keydown', function (event) {
+                shortcutInput.value = event.key; // Simplified for demonstration; handle combinations appropriately
+                Mousetrap.unbind('keydown');
+                event.preventDefault();
+            });
+        });
+
+        const commandInput = document.createElement('input');
+        commandInput.value = shortcuts[key];
+        commandInput.contentEditable = true;
+
+        shortcutWrapper.appendChild(shortcutInput);
+        shortcutWrapper.appendChild(commandInput);
+        form.appendChild(shortcutWrapper);
+    });
+
+    // Add new shortcut pair inputs
+    const addWrapper = document.createElement('div');
+    addWrapper.className = 'config-adder';
+
+    const newShortcutInput = document.createElement('input');
+    newShortcutInput.placeholder = 'New Shortcut';
+    newShortcutInput.addEventListener('focus', function () {
+        Mousetrap.bind('keydown', function (event) {
+            newShortcutInput.value = event.key; // Handle key combination capture
+            Mousetrap.unbind('keydown');
+            event.preventDefault();
+        });
+    });
+
+    const newCommandInput = document.createElement('input');
+    newCommandInput.placeholder = 'New Command';
+
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Add';
+    addButton.type = 'button';
+    addButton.onclick = () => {
+        const shortcut = newShortcutInput.value.trim();
+        const command = newCommandInput.value.trim();
+        if (shortcut && command) {
+            shortcuts[shortcut] = command; // Add to shortcuts object
+            newShortcutInput.value = '';
+            newCommandInput.value = '';
+            addShortcutPair(form, shortcut, command);
+        }
+    };
+
+    addWrapper.appendChild(newShortcutInput);
+    addWrapper.appendChild(newCommandInput);
+    addWrapper.appendChild(addButton);
+    form.appendChild(addWrapper);
+
+    modal.appendChild(form);
+    backdrop.appendChild(modal);
+    document.body.appendChild(backdrop);
+
+    // Function to dynamically add shortcut pairs to the form
+    function addShortcutPair(parent, shortcut, command) {
+        const shortcutWrapper = document.createElement('div');
+
+        const shortcutInput = document.createElement('input');
+        shortcutInput.value = shortcut;
+
+        const commandInput = document.createElement('input');
+        commandInput.value = command;
+        commandInput.contentEditable = true;
+
+        shortcutWrapper.appendChild(shortcutInput);
+        shortcutWrapper.appendChild(commandInput);
+        parent.appendChild(shortcutWrapper);
+    }
+}
+
+const showShortcutModal = createShortcutEditor;

@@ -25,7 +25,7 @@ function extractEncodedPath() {
     }
 } 
 Neutralino.events.on("ready", async () => {
-
+   
     let path = extractEncodedPath();
     getConfig();
 
@@ -47,10 +47,7 @@ Neutralino.events.on("ready", async () => {
     } else {
         setupEventListeners();
     }
-})
-function showConfig(){
-    
-}
+}) 
 function onWindowClose() {
     Neutralino.app.exit();
 }
