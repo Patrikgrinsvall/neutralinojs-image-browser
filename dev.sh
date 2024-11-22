@@ -16,7 +16,7 @@ npx @neutralinojs/neu run &
 NEU_PID=$!
 
 # Handle Ctrl+C to terminate both processes
-trap "kill $TAILWIND_PID $NEU_PID; exit" SIGINT
+trap 'kill $(TAILWIND_PID) $(NEU_PID); exit' SIGINT
 
 # Wait for either process to exit. If one does, terminate the other.
 wait $TAILWIND_PID $NEU_PID

@@ -11,9 +11,9 @@ export async function writeConfig(obj = window.imConfig, filename = window.imcon
         console.log('Failed to write config:', error.message, error.code, JSON.stringify(error));
     }
 }
-export function saveCurrentConfig(){
-    const config=createFromAllInputs();
-    window.imConfig=config;
+export function saveCurrentConfig() {
+    const config = createFromAllInputs();
+    window.imConfig = config;
     writeConfig(config);
 }
 
@@ -40,7 +40,8 @@ async function readConfig(filename = window.imconfigFilename) {
         console.error('Failed to read config:', error);
         return null
     }
-}export function loadIntoDocument(config) {
+}
+export function loadIntoDocument(config) {
     Object.keys(config).forEach(key => {
         // Try to find an element by id first
         let element = document.getElementById(key);
@@ -51,8 +52,8 @@ async function readConfig(filename = window.imconfigFilename) {
         // If an element is found, set its value
         if (element) {
             element.value = config[key];
-        }else{
-            console.log("didnt find",key)
+        } else {
+            console.log("didnt find", key)
         }
     });
 }
@@ -60,7 +61,7 @@ async function readConfig(filename = window.imconfigFilename) {
 export async function getConfig() {
     try {
         const config = await readConfig(window.imconfigFilename);
-        
+
         window.imConfig = config;
         console.log('Configuration: ', JSON.stringify(config));
         return config;
@@ -170,7 +171,7 @@ export async function createConfigEditor(config = null, saveCallback) {
         backdrop.classList.add = 'block';
         backdrop.classList.remove = 'hidden';
     };
-} 
+}
 export function createFromForm(formElement) {
     const config = {};
     Array.from(formElement.elements).forEach(element => {
