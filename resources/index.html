@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>NeutralinoJs sample app</title>
-    <script src="/js/neutralino.js"></script>
-    <link type="style" href="/dist.css" />
+    <script src="./js/neutralino.js"></script>
+    <link rel="stylesheet" href="./dist.css">
     <style>
         .modal-backdrop {
             position: fixed;
@@ -46,14 +46,6 @@
     <script src="./js/mousetrap.js"></script>
     <script src="./js/mousetrap-record.js"></script>
     <script src="./js/mousetrap-bind-dictionary.js"></script>
-    <script>
-        function recordSequence() {
-            Mousetrap.record(function (sequence) {
-                // sequence is an array like ['ctrl+k', 'c']
-                alert('You pressed: ' + sequence.join(' '));
-            });
-        }
-    </script>
     <!-- <script src="./js/mousetrap-bind-dictionary.js"></script> -->
     <script src="./js/index.js" type="module"></script>
     <script src="./js/main.js" type="module"></script>
@@ -71,14 +63,10 @@
             </svg>
         </div>
         <div class="p-4 rounded" id="configView"> </div>
-        <div id="imageInfo"
-            class="absolute top-40 left-2 px-4 py-2 w-50 bg-black/75 h-fit text-white rounded-lg shadow-lg"
-            style="z-index: 9999"></div>
         <div id="toolbar"
             class="  h-fit bg-gray-300 flex flex-row gap-2 items-center z-50 transition-all duration-500 w-screen p-2">
-            <div>Image Gallery</div>
             <button type="button" id="selectDirButton"
-                class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                class=" basis-fullitems-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 Select directory </button>
             <!-- <input type="file" id="fileElem" multiple accept="image/*" style="display:none"/>
         <button id="fileSelect"
@@ -127,52 +115,55 @@
                 </div>
             </div>
         </div>
-        <div id="fileList" class="  bg-gray-100 text-center flex flex-wrap items-start gap-2 pt-[100px]"></div>
-        <div id="macroview">
-            <div class="p-4 bg-slate-800">
-                <div class="bg-gray-100 p-4">
-                    <div class="">
-                        <h1 class="text-2xl font-bold mb-4">Command List</h1>
-                        <!-- Table/List goes here -->
-                        <table class="table-auto w-full bg-white shadow-md rounded mb-4">
-                            <thead>
-                                <tr>
-                                    <th class="px-4 py-2">Edit</th>
-                                    <th class="px-4 py-2">Command</th>
-                                    <th class="px-4 py-2">Title</th>
-                                    <th class="px-4 py-2">Shortcut ( click to quick set )</th>
-                                </tr>
-                            </thead>
-                            <tbody id="command-list">
-                                <!-- Items will be populated here -->
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td class="border px-4 py-2"><input type="text" id="new-command" class="w-full"
-                                            placeholder='new command to run in terminal. eg. ls -lart'></td>
-                                    <td class="border px-4 py-2"><input type="text" id="new-title" class="w-full"
-                                            placeholder='new title'></td>
-                                    <td class="border px-4 py-2">
-                                        <input type="text" id="new-shortcut" class="w-full text-gray-300"
-                                            placeholder="click to record">
-                                    </td>
-                                    <td class="flex items-center text-center center">
-                                        <button id="add-item"
-                                            class=" self-center hover:bg-gray-400   py-2 px-4    bg-slate-200 border-solid border-gray-500 border rounded shadow">Add
-                                            new command</button>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                        <div id="rawJsonData" class="hidden">
-                            <h2 class="text-xl font-bold mb-2">Edit raw JSON</h2>
-                            <textarea id="json-editor" class="w-full h-64 p-2 border"
-                                placeholder="Edit JSON here"></textarea>
-                            <button id="update-from-json"
-                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2">Update
-                                Items from JSON</button>
-                        </div>
+        <div id="imageInfo"
+            class="absolute top-40 px-4 py-2 w-50 bg-black/75 h-fit text-white rounded-lg shadow-lg transition-all duration-1000 hover:right-0 "
+            style="z-index: 9999">No image loaded</div>
+        <div id="fileList" class="  bg-gray-100 text-center flex flex-wrap items-start gap-2 pt-[100px]">
+        </div>
+        <div id="macroview" class="border-solid">
+            <input type="checkbox" name="displayCommands" id="displayCommands" class="peer">
+            <label for="displayCommands" class="">Show macros</label>
+            <div class="p-4 bg-slate-200 peer-checked:block hidden">
+                <div class="">
+                    <h1 class="text-2xl font-bold mb-4">Command List</h1>
+                    <table class="table-auto w-full bg-white shadow-md rounded ">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2">Edit</th>
+                                <th class="px-4 py-2">Command</th>
+                                <th class="px-4 py-2">Title</th>
+                                <th class="px-4 py-2">Shortcut ( click to quick set )</th>
+                            </tr>
+                        </thead>
+                        <tbody id="command-list">
+                            <!-- Items will be populated here -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td class="border px-4 py-2"><input type="text" id="new-command" class="w-full"
+                                        placeholder='new command to run in terminal. eg. ls -lart'></td>
+                                <td class="border px-4 py-2"><input type="text" id="new-title" class="w-full"
+                                        placeholder='new title'></td>
+                                <td class="border px-4 py-2">
+                                    <input type="text" id="new-shortcut" class="w-full text-gray-300"
+                                        placeholder="click to record">
+                                </td>
+                                <td class="flex items-center text-center center">
+                                    <button id="add-item"
+                                        class=" self-center hover:bg-gray-400   py-2 px-4    bg-slate-200 border-solid border-gray-500 border rounded shadow">Add
+                                        new command</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div id="rawJsonData" class="hidden">
+                        <h2 class="text-xl font-bold mb-2">Edit raw JSON</h2>
+                        <textarea id="json-editor" class="w-full h-64 p-2 border"
+                            placeholder="Edit JSON here"></textarea>
+                        <button id="update-from-json"
+                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2">Update
+                            Items from JSON</button>
                     </div>
                 </div>
             </div>

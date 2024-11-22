@@ -8,7 +8,7 @@
     "editor.guides.bracketPairs": true,
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.linkedEditing": false,
-    "editor.minimap.enabled": false,
+    "editor.minimap.enabled": true,
     "files.autoSaveWorkspaceFilesOnly": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
@@ -20,7 +20,7 @@
     "workbench.remoteIndicator.showExtensionRecommendations": false,
     "workbench.startupEditor": "none",
     "workbench.colorTheme": "Tomorrow Night Blue",
-    "genieai.enableGenerateCommitMessage": false,
+    "genieai.enableGenerateCommitMessage": true,
     "genieai.enableConversationHistory": true,
     "genieai.openai.temperature": 0.7,
     "genieai.response.showNotification": true,
@@ -29,5 +29,7 @@
     "window.closeWhenEmpty": false,
     "workbench.iconTheme": null,
     "breadcrumbs.icons": false,
-    "genieai.openai.maxTokens": 16384
+    "genieai.openai.maxTokens": 16384,
+    "inlineChat.holdToSpeech": false,
+    "chat.commandCenter.enabled": false
 }

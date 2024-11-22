@@ -16,3 +16,4 @@ neutralino.config.js
 .idea
 neutralino.config.json
 node_modules
+.vscode/settings.json
