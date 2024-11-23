@@ -21,6 +21,7 @@ trap 'kill $(TAILWIND_PID) $(NEU_PID); exit' SIGINT
 
 # Wait for either process to exit. If one does, terminate the other.
 wait $TAILWIND_PID $NEU_PID
+# shellcheck disable=SC2181
 if [ $? -eq 0 ]; then
   echo "One of the processes has terminated unexpectedly."
   kill $TAILWIND_PID $NEU_PID 2> /dev/null

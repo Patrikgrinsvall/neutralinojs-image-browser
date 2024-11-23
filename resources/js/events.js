@@ -1,4 +1,4 @@
-import { initShortcuts, createShortcutEditor,saveCurrentConfig,getConfig,createConfigEditor,writeConfig,handleDirSelectClick, handleFileSelectClick, handleFiles,updateImageSize, showPreviousPage, showNextPage, updateImagesPerPage, disableOverlay,startSlideshow,slideshowInterval  } from './index.js';
+import { saveCurrentConfig, getConfig, createConfigEditor, writeConfig, handleDirSelectClick, handleFileSelectClick, handleFiles, updateImageSize, showPreviousPage, showNextPage, updateImagesPerPage, disableOverlay, startSlideshow, slideshowInterval } from './index.js';
 
 export function setupEventListeners() {
     const dirSelect = document.getElementById("selectDirButton");
@@ -16,8 +16,8 @@ export function setupEventListeners() {
     nextPage.addEventListener("click", showNextPage);
     imagesPerPageSlider.addEventListener("input", updateImagesPerPage);
     slideshowButton.addEventListener("click", startSlideshow);
-    config_button.addEventListener("click",()=>{createConfigEditor(null,function(){saveCurrentConfig()})});
-    
+    config_button.addEventListener("click", () => { createConfigEditor(null, function () { saveCurrentConfig() }) });
+
     document.addEventListener("keydown", handleKeyDown);
 }
 

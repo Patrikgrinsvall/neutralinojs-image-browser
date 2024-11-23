@@ -12,7 +12,11 @@ export async function writeConfig(obj = window.imConfig, filename = window.imcon
     }
 }
 export function saveCurrentConfig() {
-    const config = createFromAllInputs();
+    const config = createFromForm(document.getElementById("configForm"));
+    if (!config.keys() || config.keys().length === 0) {
+        console.log("noconfig in form");
+        return;
+    }
     window.imConfig = config;
     writeConfig(config);
 }
@@ -80,7 +84,7 @@ export async function createConfigEditor(config = null, saveCallback) {
 
     const modal = document.createElement('div');
 
-    modal.classList.add("p-4", "bg-red-100", "text-black", "modal", "opacity-0");
+    modal.classList.add("p-4", "bg-red-100", "text-black", "modal");
 
     const form = document.createElement('form');
     form.id = "configForm"
@@ -168,8 +172,8 @@ export async function createConfigEditor(config = null, saveCallback) {
     };
     // Function to show the modal
     return () => {
-        backdrop.classList.add = 'block';
-        backdrop.classList.remove = 'hidden';
+        backdrop.classList.add('block');
+        backdrop.classList.remove('hidden', "opacity-0");
     };
 }
 export function createFromForm(formElement) {
@@ -204,98 +208,11 @@ export function createFromAllInputs() {
     const config = {};
     document.querySelectorAll('input, select, textarea').forEach(element => {
         const key = element.name || element.id;  // Prefer name, but fall back to id
-        if (key) {  // Ensure the element has a name or id to be used as a key
+        if (key && element.classList.contains('config')) {
             config[key] = element.value;
+        } else {
+
         }
     });
     return config;
 }
-export async function createShortcutEditor(shortcuts = {}) {
-    const backdrop = document.createElement('div');
-    backdrop.className = 'modal-backdrop';
-
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-
-    const form = document.createElement('form');
-
-    Object.keys(shortcuts).forEach(key => {
-        const shortcutWrapper = document.createElement('div');
-
-        const shortcutInput = document.createElement('input');
-        shortcutInput.value = key;
-        shortcutInput.addEventListener('focus', function () {
-            Mousetrap.bind('keydown', function (event) {
-                shortcutInput.value = event.key; // Simplified for demonstration; handle combinations appropriately
-                Mousetrap.unbind('keydown');
-                event.preventDefault();
-            });
-        });
-
-        const commandInput = document.createElement('input');
-        commandInput.value = shortcuts[key];
-        commandInput.contentEditable = true;
-
-        shortcutWrapper.appendChild(shortcutInput);
-        shortcutWrapper.appendChild(commandInput);
-        form.appendChild(shortcutWrapper);
-    });
-
-    // Add new shortcut pair inputs
-    const addWrapper = document.createElement('div');
-    addWrapper.className = 'config-adder';
-
-    const newShortcutInput = document.createElement('input');
-    newShortcutInput.placeholder = 'New Shortcut';
-    newShortcutInput.addEventListener('focus', function () {
-        Mousetrap.bind('keydown', function (event) {
-            newShortcutInput.value = event.key; // Handle key combination capture
-            Mousetrap.unbind('keydown');
-            event.preventDefault();
-        });
-    });
-
-    const newCommandInput = document.createElement('input');
-    newCommandInput.placeholder = 'New Command';
-
-    const addButton = document.createElement('button');
-    addButton.textContent = 'Add';
-    addButton.type = 'button';
-    addButton.onclick = () => {
-        const shortcut = newShortcutInput.value.trim();
-        const command = newCommandInput.value.trim();
-        if (shortcut && command) {
-            shortcuts[shortcut] = command; // Add to shortcuts object
-            newShortcutInput.value = '';
-            newCommandInput.value = '';
-            addShortcutPair(form, shortcut, command);
-        }
-    };
-
-    addWrapper.appendChild(newShortcutInput);
-    addWrapper.appendChild(newCommandInput);
-    addWrapper.appendChild(addButton);
-    form.appendChild(addWrapper);
-
-    modal.appendChild(form);
-    backdrop.appendChild(modal);
-    document.body.appendChild(backdrop);
-
-    // Function to dynamically add shortcut pairs to the form
-    function addShortcutPair(parent, shortcut, command) {
-        const shortcutWrapper = document.createElement('div');
-
-        const shortcutInput = document.createElement('input');
-        shortcutInput.value = shortcut;
-
-        const commandInput = document.createElement('input');
-        commandInput.value = command;
-        commandInput.contentEditable = true;
-
-        shortcutWrapper.appendChild(shortcutInput);
-        shortcutWrapper.appendChild(commandInput);
-        parent.appendChild(shortcutWrapper);
-    }
-}
-
-const showShortcutModal = createShortcutEditor;
