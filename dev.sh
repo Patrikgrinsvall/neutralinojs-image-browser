@@ -2,7 +2,7 @@
 
 # Update the NeutralinoJS project
 #npx @neutralinojs/neu update
-
+nvm use --lts
 # Replace the current configuration file with the development configuration
 unlink neutralino.config.json &> /dev/null
 cp neutralino.dev.config.json neutralino.config.json
