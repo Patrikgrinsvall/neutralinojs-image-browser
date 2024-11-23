@@ -43,7 +43,8 @@ html,
   /* 2 */
   -moz-tab-size: 4;
   /* 3 */
-  tab-size: 4;
+  -o-tab-size: 4;
+     tab-size: 4;
   /* 3 */
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /* 4 */
@@ -87,7 +88,8 @@ Add the correct text decoration in Chrome, Edge, and Safari.
 */
 
 abbr:where([title]) {
-  text-decoration: underline dotted;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
 }
 
 /*
@@ -376,6 +378,13 @@ textarea {
 2. Set the default placeholder color to the user's configured gray 400 color.
 */
 
+input::-moz-placeholder, textarea::-moz-placeholder {
+  opacity: 1;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
+}
+
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
@@ -595,10 +604,6 @@ video {
   left: 2.5rem;
 }
 
-.left-2 {
-  left: 0.5rem;
-}
-
 .right-10 {
   right: 2.5rem;
 }
@@ -609,6 +614,18 @@ video {
 
 .top-5 {
   top: 1.25rem;
+}
+
+.bottom-40 {
+  bottom: 10rem;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.top-0 {
+  top: 0px;
 }
 
 .z-0 {
@@ -647,10 +664,6 @@ video {
   display: flex;
 }
 
-.inline-flex {
-  display: inline-flex;
-}
-
 .table {
   display: table;
 }
@@ -676,6 +689,7 @@ video {
 }
 
 .h-fit {
+  height: -moz-fit-content;
   height: fit-content;
 }
 
@@ -688,6 +702,7 @@ video {
 }
 
 .w-fit {
+  width: -moz-fit-content;
   width: fit-content;
 }
 
@@ -697,10 +712,6 @@ video {
 
 .w-screen {
   width: 100vw;
-}
-
-.basis-full {
-  flex-basis: 100%;
 }
 
 .table-auto {
@@ -898,19 +909,9 @@ video {
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
 }
 
-.bg-slate-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
-}
-
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-slate-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
 }
 
 .bg-yellow-100 {
@@ -1081,7 +1082,9 @@ video {
 }
 
 .transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1100,8 +1103,12 @@ video {
   transition-duration: 500ms;
 }
 
-.empty\:hidden:empty {
-  display: none;
+.empty\:h-0:empty {
+  height: 0px;
+}
+
+.empty\:p-0:empty {
+  padding: 0px;
 }
 
 .hover\:right-0:hover {

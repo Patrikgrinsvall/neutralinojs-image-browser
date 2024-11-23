@@ -1,0 +1,79 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "install",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"label": "npm: install",
+			"detail": "install dependencies from package"
+		},
+		{
+			"type": "shell",
+			"command": "npx @neutralinojs/neu",
+			"args": [
+				"run"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"shell": {
+					"args": [
+						"-c",
+						"-l"
+					]
+				}
+			},
+			"label": "neu watch",
+			"detail": "run neu dev",
+			"isBackground": true,
+			"runOptions": {
+				"instanceLimit": 1
+			},
+			"presentation": {
+				"group": "dev",
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": true
+			}
+		},
+		{
+			"type": "shell",
+			"command": "node node_modules/.bin/tailwindcss -c ./tailwind.config.js -i ./resources/styles.css -o ./resources/dist.css ",
+			"args": [
+				"--no-autoprefixer",
+				"--watch"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"shell": {
+					"args": [
+						"-c",
+						"-l"
+					]
+				}
+			},
+			"label": "tailwind watch",
+			"detail": "tailwind watch"
+		},
+		{
+			"label": "devrun",
+			"options": {
+				"shell": {
+					"args": [
+						"-c",
+						"-l"
+					]
+				}
+			},
+			"dependsOn": [
+				"neu watch",
+				"tailwind watch"
+			]
+		}
+	]
+}
