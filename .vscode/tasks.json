@@ -2,78 +2,49 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "npm",
-			"script": "install",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"label": "npm: install",
-			"detail": "install dependencies from package"
-		},
-		{
-			"type": "shell",
-			"command": "npx @neutralinojs/neu",
-			"args": [
-				"run"
-			],
+			"label": "install",
+			"type": "process",
+			"command": "npm",
 			"options": {
-				"cwd": "${workspaceFolder}",
-				"shell": {
-					"args": [
-						"-c",
-						"-l"
-					]
+				"cwd": "${fileDirname}/..",
+				"env": {
+					"ENVIRONMENT_VAR": "VALUE"
 				}
 			},
-			"label": "neu watch",
-			"detail": "run neu dev",
-			"isBackground": true,
-			"runOptions": {
-				"instanceLimit": 1
-			},
+			"echoCommand": true,
+			"detail": "description of the install task",
+			"args": [
+				"install"
+			],
 			"presentation": {
-				"group": "dev",
-				"echo": true,
-				"reveal": "silent",
-				"focus": false,
-				"panel": "new",
-				"showReuseMessage": true
+				"reveal": "always"
 			}
 		},
 		{
-			"type": "shell",
-			"command": "node node_modules/.bin/tailwindcss -c ./tailwind.config.js -i ./resources/styles.css -o ./resources/dist.css ",
-			"args": [
-				"--no-autoprefixer",
-				"--watch"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}",
-				"shell": {
-					"args": [
-						"-c",
-						"-l"
-					]
-				}
+			"label": "platform specific config",
+			"type": "process",
+			"icon": {
+				"id": "checklist"
 			},
-			"label": "tailwind watch",
-			"detail": "tailwind watch"
-		},
-		{
-			"label": "devrun",
-			"options": {
-				"shell": {
-					"args": [
-						"-c",
-						"-l"
-					]
-				}
+			"windows": {
+				"label": "windows label overrides its parent",
+				"command": "npm.exe",
+				"args": [
+					"run",
+					"build"
+				]
 			},
-			"dependsOn": [
-				"neu watch",
-				"tailwind watch"
-			]
+			"linux": {
+				"command": "npm",
+				"description":"a bit less verbose on linux ",
+				"echoCommand": false,
+				"dependsOn": "install",
+				"dependsOrder": "sequence",
+				"args": [
+					"run",
+					"build"
+				]
+			}
 		}
 	]
 }

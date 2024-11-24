@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>NeutralinoJs sample app</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        .modal-backdrop {
+            position: fixed;
+            display: flex;
+            ;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.85);
+            transition: all 500ms;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: fit-content;
+            transition: all 500ms;
+            height: fit-content;
+            box-shadow: 0 4px 6px rgb(0, 0, 0);
+        }
+
+        .modal input {
+            width: calc(100% - 20px);
+            margin: 5px 0;
+            padding: 10px;
+        }
+
+        .modal button {
+            margin: 10px 5px 0;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+
+    <script src="./main.js" type="module"></script>
+</head>
+
+<body>
+    <div id="task-list">a</div>
+</body>
+
+</html>

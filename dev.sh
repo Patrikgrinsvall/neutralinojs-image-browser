@@ -8,7 +8,7 @@ unlink neutralino.config.json &> /dev/null
 cp neutralino.dev.config.json neutralino.config.json
 
 # Start the Tailwind CSS compiler in the background and capture its process ID
-node node_modules/.bin/tailwindcss -c ./tailwind.config.js -i ./resources/styles.css -o ./resources/dist.css --no-autoprefixer --watch
+node node_modules/.bin/tailwindcss -c ./tailwind.config.js -i ./resources/styles.css -o ./resources/dist.css  --watch
 TAILWIND_PID=$!
 
 # Start the NeutralinoJS server in the background and capture its process ID
