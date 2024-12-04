@@ -1,4 +1,4 @@
-import { saveCurrentConfig, getConfig, createConfigEditor, writeConfig, handleDirSelectClick, handleFileSelectClick, handleFiles, updateImageSize, showPreviousPage, showNextPage, updateImagesPerPage, disableOverlay, startSlideshow, slideshowInterval } from './index.js';
+import { saveCurrentConfig, getConfig, createConfigEditor,updateFiles, writeConfig, handleDirSelectClick, handleFileSelectClick, handleFiles, updateImageSize, showPreviousPage, showNextPage, updateImagesPerPage, disableOverlay, startSlideshow, slideshowInterval } from './index.js';
 
 export function setupEventListeners() {
     const dirSelect = document.getElementById("selectDirButton");
@@ -10,6 +10,8 @@ export function setupEventListeners() {
     const imagesPerPageSlider = document.getElementById("imagesPerPage");
     const slideshowButton = document.getElementById("slideshowButton");
     const config_button = document.getElementById("config_button");
+    const globPatternInput = document.getElementById("globPattern");
+    globPatternInput.addEventListener("blur",updateFiles);
     dirSelect.addEventListener("click", handleDirSelectClick);
     sizeSlider.addEventListener("input", updateImageSize);
     prevPage.addEventListener("click", showPreviousPage);

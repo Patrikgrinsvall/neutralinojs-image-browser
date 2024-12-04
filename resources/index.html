@@ -68,6 +68,16 @@
             <button type="button" id="selectDirButton"
                 class=" basis-fullitems-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 Select directory </button>
+                <input type="text" readonly id="selectedDir">
+                <div class=" ">
+                    <label for="sizeSlider">File pattern:</label>
+                    <input type="text" id="globPattern" value="*.*">
+                    <!-- <button class="w-8 h-8 bg-slate-300" id="refreshFiles">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8 inline-block">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                      </svg>
+                      </button> -->
+                </div>
             <!-- <input type="file" id="fileElem" multiple accept="image/*" style="display:none"/>
         <button id="fileSelect"
                 class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
@@ -76,6 +86,7 @@
         </button> -->
             <div id="controlsContainer" class="flex flex-row gap-2 items-center" style="display: none;">
                 <!-- Image Size Slider -->
+
                 <div class=" ">
                     <label for="sizeSlider">Image Size (%):</label>
                     <input type="range" id="sizeSlider" min="0" max="110" value="10" step="10">
@@ -116,8 +127,8 @@
             </div>
         </div>
         <div id="imageInfo"
-            class="absolute bottom-0 px-4 empty:p-0 empty:h-0 py-2 w-50 bg-black/75 h-fit text-white rounded-lg shadow-lg transition-all duration-1000"></div>
-        <div id="fileList" class="  bg-gray-100 text-center flex flex-wrap items-start gap-2 pt-[100px]">
+            class="fixed bottom-0 px-4 empty:p-0 py-2 w-full bg-black h-20 text-white rounded-lg shadow-lg transition-all duration-1000 " style="z-index: 1010;"></div>
+        <div id="fileList" class="  bg-gray-100 text-left p-4 flex flex-col items-start gap-2 pt-[100px]">
         </div>
         <div id="macroview" class="border-solid">
             <input type="checkbox" name="displayCommands" id="displayCommands" class="peer">

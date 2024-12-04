@@ -1,12 +1,13 @@
 // slideshow.js
 
-import { createImageElement, disableOverlay, enableOverlay, imagePaths } from './index.js';
+import { createImageElement, disableOverlay, enableOverlay, imagePaths,handleDirectorySelection } from './index.js';
 
 export let slideshowInterval = null;
 
 let currentIndex = 0;
 let duration = 0;
 let random = false;
+let displayMode="original";
 
 // export function startSlideshow() {
 //     const duration = parseInt(document.getElementById("durationInput").value, 10) * 1000;
@@ -33,7 +34,7 @@ let random = false;
 export function startSlideshow() {
     duration = parseInt(document.getElementById("durationInput").value, 10) * 1000;
     random = document.getElementById("randomCheckbox").checked;
-
+    handleDirectorySelection(document.getElementById("selectedDir").value)
     if (slideshowInterval) {
         clearInterval(slideshowInterval);
         slideshowInterval = null;
@@ -171,6 +172,10 @@ async function handleKeyboardNavigation(event) {
             currentIndex = (currentIndex + 1) % imagePaths.length;
             updateImageInfo(ratingText);
             break;
+        case "f":
+            if(displayMode==="original") displayMode="fit";
+            else displayMode="original";
+            break;
         default:
 
             break;
@@ -219,6 +224,35 @@ export function stopSlideshow() {
     // Remove any fullscreen images when the slideshow is stopped
     const existingImages = document.querySelectorAll(".fullscreen");
     existingImages.forEach(img => img.remove());
+}
+function setAspect(imageElement, mode="original") {
+
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    if (mode === 'original') {
+        // Reset styles to display the image in its original size
+        imageElement.style.width = "";
+        imageElement.style.height = "";
+    } else if (mode === 'fit') {
+        // Reset any previously set styles
+        imageElement.style.width = "";
+        imageElement.style.height = "";
+
+        // Calculate the aspect ratios
+        const imageRatio = imageElement.naturalWidth / imageElement.naturalHeight;
+        const viewportRatio = viewportWidth / viewportHeight;
+
+        if (imageRatio > viewportRatio) {
+            // Image is wider than the viewport
+            imageElement.style.width = '100%';
+            imageElement.style.height = 'auto';
+        } else {
+            // Image is taller than the viewport or squares
+            imageElement.style.width = 'auto';
+            imageElement.style.height = '100%';
+        }
+    }
 }
 
 // function showFullScreen(urlOrPath) {
@@ -280,14 +314,14 @@ function showFullScreen(urlOrPath) {
     img.classList.add("opacity-0","transition-all","duration-500","bg-blend-hue");
     img.classList.remove("opacity-100");
     img.style = `
-        height: 100%;
+        height: auto;
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 1000;
     `;
-
+    setAspect(img,displayMode);
     if (urlOrPath.startsWith("http") || urlOrPath.startsWith("data:")) {
         img.src = urlOrPath;
     } else {
