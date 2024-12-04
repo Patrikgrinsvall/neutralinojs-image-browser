@@ -309,7 +309,8 @@ function showFullScreen(urlOrPath) {
     const existingImages = document.querySelectorAll(".fullscreen");
     existingImages.forEach(img => img.remove());
 
-    const img = createImageElement();
+    const imgw = createImageElement();
+    const img = imgw.getElementsByTagName("img")[0];
     img.classList.add("fullscreen");
     img.classList.add("opacity-0","transition-all","duration-500","bg-blend-hue");
     img.classList.remove("opacity-100");
