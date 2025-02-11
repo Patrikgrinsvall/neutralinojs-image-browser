@@ -11,18 +11,18 @@
   "tokenSecurity": "none",
   "logging": {
     "enabled": false,
-    "writeToLogFile":false
+    "writeToLogFile": false
   },
   "nativeAllowList": [
     "app.*",
     "os.*",
     "filesystem.*",
-    "debug.log"
-
+    "storage.*",
+    "window.*",
+    "events.*"
   ],
-  
   "modes": {
-"window": {
+    "window": {
       "title": "Image Browser",
       "width": 1200,
       "height": 800,
@@ -37,7 +37,6 @@
       "resizable": true,
       "exitProcessOnClose": false
     }
-
   },
   "cli": {
     "binaryName": "imbr",

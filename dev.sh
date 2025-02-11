@@ -11,6 +11,8 @@ cp neutralino.dev.config.json neutralino.config.json
 node node_modules/.bin/tailwindcss -c ./tailwind.config.js -i ./resources/styles.css -o ./resources/dist.css --no-autoprefixer --watch &
 TAILWIND_PID=$!
 
+# To open the program with a directory as argument change directory below
+#npx @neutralinojs/neu run -- /directory &
 # Start the NeutralinoJS server in the background and capture its process ID
 npx @neutralinojs/neu run &
 NEU_PID=$!

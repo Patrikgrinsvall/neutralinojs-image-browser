@@ -11,14 +11,16 @@
   "tokenSecurity": "one-time",
   "logging": {
     "enabled": true,
-    "writeToLogFile": true
+    "writeToLogFile": false
   },
   "nativeAllowList": [
     "app.*",
     "os.*",
     "debug.log",
     "filesystem.*",
-    "storage.*"
+    "storage.*",
+    "window.*",
+    "events.*"
   ],
   "modes": {
     "window": {
@@ -36,7 +38,6 @@
       "resizable": true,
       "exitProcessOnClose": false
     }
-
   },
   "cli": {
     "binaryName": "imbr",

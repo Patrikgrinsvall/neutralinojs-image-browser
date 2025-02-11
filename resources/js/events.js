@@ -2,8 +2,7 @@ import { saveCurrentConfig, getConfig, createConfigEditor,updateFiles, writeConf
 
 export function setupEventListeners() {
     const dirSelect = document.getElementById("selectDirButton");
-    const fileSelect = document.getElementById("fileSelect");
-    const fileElem = document.getElementById("fileElem");
+
     const sizeSlider = document.getElementById("sizeSlider");
     const prevPage = document.getElementById("prevPage");
     const nextPage = document.getElementById("nextPage");
@@ -20,8 +19,4 @@ export function setupEventListeners() {
     slideshowButton.addEventListener("click", startSlideshow);
     config_button.addEventListener("click", () => { createConfigEditor(null, function () { saveCurrentConfig() }) });
 
-    document.addEventListener("keydown", handleKeyDown);
-}
-
-function handleKeyDown(event) {
 }

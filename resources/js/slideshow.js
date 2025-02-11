@@ -42,6 +42,7 @@ export function startSlideshow() {
 
     // Show the first image immediately
     currentIndex = random ? Math.floor(Math.random() * imagePaths.length) : 0;
+    console.log(imagePaths);
     showFullScreen(imagePaths[currentIndex]);
     updateImageInfo();
 
@@ -208,7 +209,7 @@ function createRatingCommand(absImagePath, rating = null) {
     } else {
         let ratingPercent = rating * 20;
         //ratingCommand = `/bin/exiftool -Rating=${rating} -RatingPercent=${ratingPercent} ${absImagePath} || ( echo "you must have exiftool installed" && exit -1 ) `
-        ratingCommand = `/bin/exiftool -Rating=${rating} -RatingPercent=${ratingPercent} ${absImagePath}`
+        ratingCommand = `/bin/exiftool -Rating=${rating} -RatingPercent=${ratingPercent} -overwrite_original ${absImagePath}`
     }
     return ratingCommand.trim();
 }
@@ -308,7 +309,7 @@ function showFullScreen(urlOrPath) {
     // Remove all existing images with the "fullscreen" class
     const existingImages = document.querySelectorAll(".fullscreen");
     existingImages.forEach(img => img.remove());
-
+    console.log(urlOrPath);
     const imgw = createImageElement();
     const img = imgw.getElementsByTagName("img")[0];
     img.classList.add("fullscreen");

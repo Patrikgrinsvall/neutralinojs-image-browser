@@ -34,6 +34,7 @@ Neutralino.events.on("ready", async () => {
         .addEventListener("click", (ev) => recordTableShortcut(ev.target));
 
     let args = String(NL_ARGS);
+    console.log(args);
     if (args.includes(",")) {
         args = args.slice(args.lastIndexOf(",") + 1);
         if (args.startsWith("--") === false) {
@@ -43,11 +44,15 @@ Neutralino.events.on("ready", async () => {
 
             let e = await Neutralino.filesystem.getStats(args);
             if (e) path = args;
+            selectedDir.value=path;
+
         }
     }
     createOverlay();
     if (path !== null) {
+        console.log(`path is not null ${path}`);
         readDirectory(path);
+        setupEventListeners();
     } else {
         setupEventListeners();
     }

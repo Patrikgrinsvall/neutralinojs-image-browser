@@ -157,9 +157,9 @@ export function updateImagesPerPage() {
     updatePagination(imagePaths);
 }
 
-export function toggleControlsVisibility(imagePaths) {
+export function toggleControlsVisibility(visible=true) {
     const controlsContainer = document.getElementById("controlsContainer");
-    if (imagePaths.length > 0) {
+    if (visible) {
         controlsContainer.style.display = "flex";
     } else {
         controlsContainer.style.display = "none";

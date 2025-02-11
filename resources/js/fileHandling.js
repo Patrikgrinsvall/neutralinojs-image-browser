@@ -14,14 +14,28 @@ export async function handleDirSelectClick() {
         console.error("Error selecting directory:", error);
     }
 }
+export function sortByFilename(paths) {
+    // Make sure we don't mutate the original array
+    const pathsCopy = [...paths];
 
+    pathsCopy.sort((pathA, pathB) => {
+      // Extract filename from each path (taking the last segment after the '/')
+      const filenameA = pathA.split('/').pop();
+      const filenameB = pathB.split('/').pop();
+
+      // Use localeCompare for alphabetical ordering
+      return filenameA.localeCompare(filenameB);
+    });
+
+    return pathsCopy;
+  }
 export async function handleDirectorySelection(entry, glob = null) {
     const files = await Neutralino.filesystem.readDirectory(entry);
     imagePaths = [];
     document.getElementById("selectedDir").value = entry;
     processFiles(files, null);
     updatePagination(imagePaths);
-    toggleControlsVisibility(imagePaths);
+    toggleControlsVisibility();
     return files;
 }
 export function updateFiles() {
@@ -33,7 +47,7 @@ export async function readDirectory(dir) {
         const files = await Neutralino.filesystem.readDirectory(dir);
         imagePaths = processFiles(files);
         updatePagination(imagePaths);
-        toggleControlsVisibility(imagePaths);
+        toggleControlsVisibility();
     } catch (error) {
         console.error("Failed to read directory:", error);
     }
@@ -148,13 +162,15 @@ export async function handleFiles(event) {
         imagePaths.push(file.path);
     });
     updatePagination(imagePaths);
-    toggleControlsVisibility(imagePaths);
+    toggleControlsVisibility();
 }
 
 async function processFiles(files, globPattern = null) {
     const fileTypes = ["jpg", "png", "jpeg"];
     let glob;
     let regex;
+    let tmpImagePaths=[];
+    imagePaths.splice(0, imagePaths.length);
     imagePaths.splice(0, imagePaths.length);
     if (!globPattern) glob = document.getElementById("globPattern").value;
     else glob = globPattern;
@@ -164,15 +180,18 @@ async function processFiles(files, globPattern = null) {
     for (const file of files) {
         if (file.type === "FILE" && fileTypes.includes(file.entry.split('.').pop().toLowerCase())) {
             if (!regex) {
-                imagePaths.push(file.path);
+                tmpImagePaths.push(file.path);
                 continue;
 
             }
-            if (regex && regex.test(file.entry)) { imagePaths.push(file.path); }
+            if (regex && regex.test(file.entry)) { tmpImagePaths.push(file.path); }
             else console.log("regex mismatch", regex);
         }
     }
-    console.log(imagePaths);
+    imagePaths=sortByFilename(tmpImagePaths)
+    console.log(tmpImagePaths[0]);
+    console.log(imagePaths[0]);
+    return imagePaths;
 
 }
 function getDirectoryPath(filePath) {
