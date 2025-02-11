@@ -12,7 +12,7 @@ node node_modules/.bin/tailwindcss -c ./tailwind.config.js -i ./resources/styles
 TAILWIND_PID=$!
 
 # To open the program with a directory as argument change directory below
-#npx @neutralinojs/neu run -- /directory &
+#npx @neutralinojs/neu run -- /home/user/Dropbox/Apps/distributed/fb/out/CLOTHES_BODY_fill_0/ &
 # Start the NeutralinoJS server in the background and capture its process ID
 npx @neutralinojs/neu run &
 NEU_PID=$!

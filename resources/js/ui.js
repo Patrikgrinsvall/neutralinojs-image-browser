@@ -59,9 +59,9 @@ export function createImageElement(label = "",order=1) {
     const imgWrapper = document.createElement("div");
     const labelElement = document.createElement("div");
     labelElement.textContent = label;
-    labelElement.classList.add("opacity-100","transition-all","hidden")
-    imgWrapper.classList.add("shadow-xl", "w-full","transition-all","w-fit","h-fit");
-    img.classList.add("opacity-0", "transition-all","duration-1000","w-[150px]","h-[150px]");
+    labelElement.classList.add("opacity-100","transition-all")
+    imgWrapper.classList.add("w-full","transition-all","w-fit","h-fit");
+    img.classList.add("opacity-0", "transition-all","duration-500");
 
     let size = parseInt( document.getElementById("sizeSlider").value, 10) || 10;
     imgWrapper.addEventListener("dblclick", toggleFullScreen);
@@ -71,9 +71,9 @@ export function createImageElement(label = "",order=1) {
             imgWrapper.classList.remove("opacity-0");
             imgWrapper.style.background="";
             imgWrapper.classList.add("opacity-100");
-            labelElement.classList.remove("opacity-0","hidden")
-            labelElement.classList.add("opacity-100","block");
-            img.classList.remove("opacity-0","w-[150px]","h-[150px]");
+            labelElement.classList.remove("opacity-0")
+            labelElement.classList.add("opacity-100");
+            img.classList.remove("opacity-0");
             img.classList.add("opacity-100");
             img.style.width = `${size}%`;
             img.style.height = `${size}%`;

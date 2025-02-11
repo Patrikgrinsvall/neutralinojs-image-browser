@@ -1,13 +1,13 @@
 // slideshow.js
 
-import { createImageElement, disableOverlay, enableOverlay, imagePaths,handleDirectorySelection } from './index.js';
+import { createImageElement, disableOverlay, enableOverlay, imagePaths, handleDirectorySelection } from './index.js';
 
 export let slideshowInterval = null;
 
 let currentIndex = 0;
 let duration = 0;
 let random = false;
-let displayMode="original";
+let displayMode = "original";
 
 // export function startSlideshow() {
 //     const duration = parseInt(document.getElementById("durationInput").value, 10) * 1000;
@@ -43,8 +43,8 @@ export function startSlideshow() {
     // Show the first image immediately
     currentIndex = random ? Math.floor(Math.random() * imagePaths.length) : 0;
     console.log(imagePaths);
-    showFullScreen(imagePaths[currentIndex]);
     updateImageInfo();
+    showFullScreen(imagePaths[currentIndex]);
 
     // Start the slideshow interval
     startSlideshowInterval();
@@ -64,8 +64,8 @@ function startSlideshowInterval() {
         } else {
             currentIndex = (currentIndex + 1) % imagePaths.length;
         }
-        showFullScreen(imagePaths[currentIndex]);
         updateImageInfo();
+        showFullScreen(imagePaths[currentIndex]);
     }, duration);
 }
 
@@ -97,11 +97,47 @@ async function updateImageInfo(text = "") {
         //     });
     }
     if (existingRating !== "") {
-        text = `Rating ${String(existingRating)} `
-        for (let i = 1; i <= existingRating; i++) text += "⭐"
-        if (existingRating === 0) text += "⭙";
+        if (document.getElementById("skipRatedImages").checked) {
+            let existingRating = 0;
+            let cnt = 0;
+            let previousIndex = currentIndex;
+            while (existingRating !== "" && cnt < 100) {
+
+                let ratingCommand = createRatingCommand(imagePaths[currentIndex]);
+                existingRating = await Neutralino.os.execCommand(ratingCommand).then((res) => {
+
+                    if (res.stdOut) {
+
+                        existingRating = res.stdOut.trim();
+
+                        console.log(`rated ${existingRating}`)
+                        previousIndex = currentIndex
+                        currentIndex = (currentIndex + 1) % imagePaths.length;
+                        updateImageInfo("skipping rated");
+                        return existingRating
+                    } else {
+                        console.log(`out ${JSON.stringify(res)}`)
+                    }
+                    return "";
+
+                });
+                cnt++;
+                console.log("skipped", cnt)
+            }
+            //previousIndex = currentIndex
+            //currentIndex = (currentIndex + 1) % imagePaths.length;
+            return existingRating;
+        } else {
+            text = `Rating ${String(existingRating)} `
+            for (let i = 1; i <= existingRating; i++) text += "⭐"
+            if (existingRating === 0) text += "⭙";
+        }
     }
-    document.getElementById("imageInfo").innerText = `${imagePaths[currentIndex]} - ${currentIndex + 1} / ${imagePaths.length} ${text}`;
+    let imageInfo = document.getElementById("imageInfo");
+    imageInfo.innerText = `${imagePaths[currentIndex]} - ${currentIndex + 1} / ${imagePaths.length} ${text}`;
+    imageInfo.classList.remove("opacity-0");
+    imageInfo.classList.add("opacity-100");
+    setTimeout(() => imageInfo.classList.remove("opacity-100"), 5000);
 }
 
 async function handleKeyboardNavigation(event) {
@@ -170,12 +206,14 @@ async function handleKeyboardNavigation(event) {
             let ratingText = `New Rating ${String(event.key)} `
             for (let i = 1; i <= event.key; i++) ratingText += "⭐"
             if (event.key === 0) ratingText += "⭙";
-            currentIndex = (currentIndex + 1) % imagePaths.length;
+            if (document.getElementById("nextWhenRated").checked) {
+                currentIndex = (currentIndex + 1) % imagePaths.length;
+            }
             updateImageInfo(ratingText);
             break;
         case "f":
-            if(displayMode==="original") displayMode="fit";
-            else displayMode="original";
+            if (displayMode === "original") displayMode = "fit";
+            else displayMode = "original";
             break;
         default:
 
@@ -185,8 +223,8 @@ async function handleKeyboardNavigation(event) {
     }
 
 
-    showFullScreen(imagePaths[currentIndex]);
     updateImageInfo();
+    showFullScreen(imagePaths[currentIndex]);
     // Restart the slideshow interval after navigation
     startSlideshowInterval();
 }
@@ -226,7 +264,7 @@ export function stopSlideshow() {
     const existingImages = document.querySelectorAll(".fullscreen");
     existingImages.forEach(img => img.remove());
 }
-function setAspect(imageElement, mode="original") {
+function setAspect(imageElement, mode = "original") {
 
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
@@ -313,7 +351,7 @@ function showFullScreen(urlOrPath) {
     const imgw = createImageElement();
     const img = imgw.getElementsByTagName("img")[0];
     img.classList.add("fullscreen");
-    img.classList.add("opacity-0","transition-all","duration-500","bg-blend-hue");
+    img.classList.add("opacity-0", "transition-all", "duration-500");
     img.classList.remove("opacity-100");
     img.style = `
         height: auto;
@@ -323,7 +361,7 @@ function showFullScreen(urlOrPath) {
         transform: translate(-50%, -50%);
         z-index: 1000;
     `;
-    setAspect(img,displayMode);
+    setAspect(img, displayMode);
     if (urlOrPath.startsWith("http") || urlOrPath.startsWith("data:")) {
         img.src = urlOrPath;
     } else {

@@ -52,8 +52,8 @@
 </head>
 
 <body>
-    <div id="neutralinoapp" class="flex flex-col text-center h-full w-full gap-2">
-        <div class="p-2 bg-gray-300  border-solid border-black rounded-lg h-fit w-full items-end text-right"
+    <div id="neutralinoapp" class="flex flex-col text-left h-full w-screen gap-2">
+        <div class="p-2 bg-gray-300 hidden border-solid border-black rounded-lg h-fit w-full items-end text-right"
             id="config_button">
             <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 24 24" stroke-width="2"
                 stroke="currentColor" class="w-12 h-12 block">
@@ -62,13 +62,23 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
             </svg>
         </div>
-        <div class="p-4 rounded" id="configView"> </div>
+        <div class="p-4 rounded hidden" id="configView"> </div>
         <div id="toolbar"
-            class="  h-fit bg-gray-300 flex flex-row gap-2 items-center z-50 transition-all duration-500 w-screen p-2">
+            class="  h-fit bg-gray-300 flex flex-col flex-wrap gap-2 items-left z-50 transition-all duration-500 w-full p-2">
             <button type="button" id="selectDirButton"
-                class=" basis-fullitems-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Select directory </button>
+                class="whitespace-nowrap w-fit basis-full items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                Open Directory </button>
+                <label>Current Directory</label>
                 <input type="text" readonly id="selectedDir">
+
+            <!-- <input type="file" id="fileElem" multiple accept="image/*" style="display:none"/>
+        <button id="fileSelect"
+                class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
+            Select
+            some files
+        </button> -->
+            <div id="controlsContainer" class="flex flex-row p-4  bg-gray-200 rounded shadow gap-2 items-left" style="display: none;">
+                <!-- Image Size Slider -->
                 <div class=" ">
                     <label for="sizeSlider">File pattern:</label>
                     <input type="text" id="globPattern" value="*.*">
@@ -78,51 +88,51 @@
                       </svg>
                       </button> -->
                 </div>
-            <!-- <input type="file" id="fileElem" multiple accept="image/*" style="display:none"/>
-        <button id="fileSelect"
-                class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
-            Select
-            some files
-        </button> -->
-            <div id="controlsContainer" class="flex flex-row gap-2 items-center" style="display: none;">
-                <!-- Image Size Slider -->
-
-                <div class=" ">
+                <div class="hidden">
                     <label for="sizeSlider">Image Size (%):</label>
-                    <input type="range" id="sizeSlider" min="0" max="110" value="10" step="10">
+                    <input type="range" id="sizeSlider" min="0" max="110" value="100" step="10">
                     <span id="sizeValue">10%</span>
                 </div>
                 <!-- Pagination Controls -->
-                <div class=" ">
+                <div class="hidden">
                     <button id="prevPage"
                         class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
                         Prev page </button>
                 </div>
-                <div>
+                <div class="hidden">
                     <label for="imagesPerPage">Images per page</label>
-                    <input type="range" id="imagesPerPage" min="1" max="50" value="6" step="5">
-                    <span id="imagesPerPageValue">6</span>
+                    <input type="range" id="imagesPerPage" min="1" max="50" value="1" step="1">
+                    <span id="imagesPerPageValue">1</span>
                 </div>
-                <div>
+                <div class="hidden">
                     <button id="nextPage"
                         class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
                         Next page </button>
                 </div>
                 <!-- Slideshow Button -->
-                <div class=" ">
+                <div class=" flex flex-row">
+                    <!-- <label>Slideshow</label> -->
                     <button id="slideshowButton"
                         class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
                         Slideshow </button>
                 </div>
                 <!-- Slideshow Duration Input -->
-                <div class=" ">
+                <div class=" flex flex-col">
                     <label for="durationInput">Duration (seconds):</label>
                     <input type="number" id="durationInput" value="3" min="1">
                 </div>
                 <!-- Random Slideshow Checkbox -->
-                <div class=" ">
-                    <label for="randomCheckbox">Random:</label>
-                    <input type="checkbox" id="randomCheckbox">
+                <div class="flex flex-row">
+                    <label for="randomCheckbox" class="mx-2" >Random</label>
+                    <input type="checkbox" id="randomCheckbox" class="w-6 h-6">
+                </div>
+                <div class=" flex flex-row">
+                    <label for="skipRatedImages">Unrated</label>
+                    <input type="checkbox" id="skipRatedImages" class="w-6 h-6">
+                </div>
+                <div class=" flex flex-row">
+                    <label for="nextWhenRated">Next image after rated</label>
+                    <input type="checkbox" id="nextWhenRated" checked class="w-6 h-6">
                 </div>
             </div>
         </div>
