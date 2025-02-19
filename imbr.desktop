@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=imbr
+Icon=/usr/share/imbr/icon.png
+Exec=imbr.sh %f
+Path=/usr/share/imbr
+Terminal=false
+Type=Application
+MimeType=inode/directory
+Comment="image Browser and Rater"
+Categories=Images;Media;Photo;

@@ -46,5 +46,37 @@
     "clientLibrary": "/resources/js/neutralino.js",
     "binaryVersion": "5.3.0",
     "clientVersion": "5.3.0"
+  },
+  "buildScript": {
+    "mac": {
+      "architecture": [
+        "x64",
+        "arm64",
+        "universal"
+      ],
+      "minimumOS": "10.13.0",
+      "appName": "imbr",
+      "appBundleName": "ExtBunDemo",
+      "appIdentifier": "com.imbr.ext",
+      "appIcon": "icon.icns"
+    },
+    "win": {
+      "architecture": [
+        "x64"
+      ],
+      "appName": "imbr",
+      "appIcon": "icon.ico"
+    },
+    "linux": {
+      "architecture": [
+        "x64",
+        "arm64",
+        "armhf"
+      ],
+      "appName": "imbr",
+      "appIcon": "icon.png",
+      "appPath": "/usr/share/imbr",
+      "appIconPath": "/usr/share/imbr/icon.png"
+    }
   }
 }
