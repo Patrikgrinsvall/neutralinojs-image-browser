@@ -32,6 +32,13 @@ Neutralino.events.on("ready", async () => {
     document
         .getElementById("new-shortcut")
         .addEventListener("click", (ev) => recordTableShortcut(ev.target));
+    document.getElementById("fullscreenButton").addEventListener("click", () => {
+        (async () => {
+            await Neutralino.window.setFullScreen()
+        })();
+    }
+    );
+
 
     let args = String(NL_ARGS);
     console.log(args);
@@ -44,8 +51,25 @@ Neutralino.events.on("ready", async () => {
 
             let e = await Neutralino.filesystem.getStats(args);
             if (e) path = args;
-            selectedDir.value=path;
+            selectedDir.value = path;
 
+        }
+    } else {
+        // load input values from storage if they exist
+        let keys = await Neutralino.storage.getKeys();
+        if (keys.includes("inputValues")) {
+
+            let data = await Neutralino.storage.getData("inputValues");
+            console.log(data);
+            if (data) {
+                data = JSON.parse(data);
+                for (let key in data) {
+                    let input = document.getElementById(key);
+                    if (input) input.value = data[key];
+                }
+            }
+        } else {
+            console.log("no input values found");
         }
     }
     createOverlay();
@@ -57,8 +81,35 @@ Neutralino.events.on("ready", async () => {
         setupEventListeners();
     }
 })
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        Neutralino.window.exitFullScreen()
+
+    }
+});
 
 function onWindowClose() {
+    // save values of all input fields
+    let data = {};
+    let elements = document.getElementsByClassName("SaveValue");
+    // loop htmlcollection of elements
+    elements = Array.from(elements);
+    elements = elements.filter((i) => i.value !== undefined);
+
+    console.log(elements);
+    for (let i in elements) {
+        if (i.value === undefined) continue;
+        data[i.id] = i.value;
+    }
+    console.log(JSON.stringify(data));
+    // wrap await in anonymous async function
+    (async () => {
+        console.log(JSON.stringify(data))
+        await Neutralino.storage.setData("inputValues", JSON.stringify(data));
+    }
+    )()
+
+
     Neutralino.app.exit();
 }
 
@@ -136,7 +187,7 @@ function setupCommandList() {
         }
         console.log(JSON.stringify(items));
         for (let i in items) {
-            console.log(items[i])
+            console.log(JSON.stringify(items[i]))
             console.log(i)
             const tr = document.createElement("tr");
 

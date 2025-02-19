@@ -64,12 +64,11 @@
         </div>
         <div class="p-4 rounded hidden" id="configView"> </div>
         <div id="toolbar"
-            class="  h-fit bg-gray-300 flex flex-col flex-wrap gap-2 items-left z-50 transition-all duration-500 w-full p-2">
+            class="h-fit bg-gray-300 flex flex-col flex-wrap gap-2 items-left z-50 transition-all duration-500 w-full p-2">
             <button type="button" id="selectDirButton"
-                class="whitespace-nowrap w-fit basis-full items-center rounded-md border border-transparent bg-gray-900 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                class="whitespace-nowrap w-fit basis-full items-center rounded-md border-2 border-white bg-gray-900 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                 Open Directory </button>
-                <label>Current Directory</label>
-                <input type="text" readonly id="selectedDir">
+                <input type="text" readonly id="selectedDir" placeholder="no directory choosen yet" class="SaveValue">
 
             <!-- <input type="file" id="fileElem" multiple accept="image/*" style="display:none"/>
         <button id="fileSelect"
@@ -81,7 +80,7 @@
                 <!-- Image Size Slider -->
                 <div class=" ">
                     <label for="sizeSlider">File pattern:</label>
-                    <input type="text" id="globPattern" value="*.*">
+                    <input type="text" id="globPattern" value="*.*" class="SaveValue">
                     <!-- <button class="w-8 h-8 bg-slate-300" id="refreshFiles">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8 inline-block">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
@@ -119,21 +118,30 @@
                 <!-- Slideshow Duration Input -->
                 <div class=" flex flex-col">
                     <label for="durationInput">Duration (seconds):</label>
-                    <input type="number" id="durationInput" value="3" min="1">
+                    <input type="number" id="durationInput" value="3" min="1" class="SaveValue">
                 </div>
                 <!-- Random Slideshow Checkbox -->
                 <div class="flex flex-row">
                     <label for="randomCheckbox" class="mx-2" >Random</label>
-                    <input type="checkbox" id="randomCheckbox" class="w-6 h-6">
+                    <input type="checkbox" id="randomCheckbox" class="w-6 h-6 bg-gray-200 Save Value">
                 </div>
                 <div class=" flex flex-row">
                     <label for="skipRatedImages">Unrated</label>
-                    <input type="checkbox" id="skipRatedImages" class="w-6 h-6">
+                    <input type="checkbox" id="skipRatedImages" class="w-6 h-6  ">
                 </div>
                 <div class=" flex flex-row">
                     <label for="nextWhenRated">Next image after rated</label>
-                    <input type="checkbox" id="nextWhenRated" checked class="w-6 h-6">
+                    <input type="checkbox" id="nextWhenRated" checked class="w-6 h-6 ">
                 </div>
+
+                <div class=" flex flex-row">
+                    <!-- <label>Slideshow</label> -->
+                    <button id="fullscreenButton"
+                        class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
+                        Fullscreen
+                    </button>
+                </div>
+
             </div>
         </div>
         <div
