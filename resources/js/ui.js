@@ -64,7 +64,7 @@ export function createImageElement(label = "",order=1) {
     img.classList.add("opacity-0", "transition-all","duration-500");
 
     let size = parseInt( document.getElementById("sizeSlider").value, 10) || 10;
-    imgWrapper.addEventListener("dblclick", toggleFullScreen);
+    // imgWrapper.addEventListener("dblclick", toggleFullScreen);
     img.onload = () => {
 
         setTimeout(function () {

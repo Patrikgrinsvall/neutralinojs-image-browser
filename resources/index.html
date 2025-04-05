@@ -7,6 +7,12 @@
     <script src="./js/neutralino.js"></script>
     <link rel="stylesheet" href="./dist.css">
     <style>
+        #zoomable-image {
+            transform-origin: 0 0;
+            transition: transform 0.2s ease-out;
+            will-change: transform;
+        }
+
         .modal-backdrop {
             position: fixed;
             display: flex;
@@ -42,6 +48,31 @@
             padding: 10px 20px;
             cursor: pointer;
         }
+
+        .img-container {
+            position: relative;
+        }
+
+        #zoomable-image {
+            transform-origin: 0 0;
+            will-change: transform, opacity;
+        }
+
+        .zoom-active {
+            opacity: 0 !important;
+            /* no transition */
+            border: 10px solid black !important;
+            /* immediate border */
+        }
+
+        #zoom-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.2s ease;
+        }
+
+        #zoom-overlay.visible {
+            opacity: 1;
+        }
     </style>
     <script src="./js/mousetrap.js"></script>
     <script src="./js/mousetrap-record.js"></script>
@@ -68,15 +99,22 @@
             <button type="button" id="selectDirButton"
                 class="whitespace-nowrap w-fit basis-full items-center rounded-md border-2 border-white bg-gray-900 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                 Open Directory </button>
-                <input type="text" readonly id="selectedDir" placeholder="no directory choosen yet" class="SaveValue">
-
+            <!-- checkbox for recursivnes and level -->
+            <div class="flex flex-row"> <label for="selectedDir">Directory</label>
+                <input type="text" id="selectedDir" placeholder="no directory choosen yet" class="SaveValue">
+                <label for="recursiveCheckbox" class="mx-2">Recursive</label>
+                <input type="checkbox" id="recursiveCheckbox" class="w-6 h-6 bg-gray-200 Save Value">
+                <label for="levelInput" class="mx-2">Level (max 3)</label>
+                <input type="number" id="levelInput" value="1" min="1" max="3" class="SaveValue">
+            </div>
             <!-- <input type="file" id="fileElem" multiple accept="image/*" style="display:none"/>
         <button id="fileSelect"
                 class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
             Select
             some files
         </button> -->
-            <div id="controlsContainer" class="flex flex-row p-4  bg-gray-200 rounded shadow gap-2 items-left" style="display: none;">
+            <div id="controlsContainer" class="flex flex-row p-4  bg-gray-200 rounded shadow gap-2 items-left"
+                style="display: none;">
                 <!-- Image Size Slider -->
                 <div class=" ">
                     <label for="sizeSlider">File pattern:</label>
@@ -122,7 +160,7 @@
                 </div>
                 <!-- Random Slideshow Checkbox -->
                 <div class="flex flex-row">
-                    <label for="randomCheckbox" class="mx-2" >Random</label>
+                    <label for="randomCheckbox" class="mx-2">Random</label>
                     <input type="checkbox" id="randomCheckbox" class="w-6 h-6 bg-gray-200 Save Value">
                 </div>
                 <div class=" flex flex-row">
@@ -133,20 +171,20 @@
                     <label for="nextWhenRated">Next image after rated</label>
                     <input type="checkbox" id="nextWhenRated" checked class="w-6 h-6 ">
                 </div>
-
                 <div class=" flex flex-row">
                     <!-- <label>Slideshow</label> -->
                     <button id="fullscreenButton"
                         class="px-4 py-1 bg-gray-200 rounded shadow border border-solid border-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600 text-gray-900">
-                        Fullscreen
-                    </button>
+                        Fullscreen </button>
                 </div>
-
             </div>
         </div>
-        <div
-            class="fixed bottom-0 px-4  h-20 w-full  text-white rounded-lg shadow-lg transition-all duration-1000 " style="z-index: 1010;">
-        <span id="imageInfo" class="empty:opacity-5 bg-black"></span></div>
+        <div id="image-wrapper">
+        </div>
+        <div class="fixed bottom-0 px-4  h-20 w-full  text-white rounded-lg shadow-lg transition-all duration-1000 "
+            style="z-index: 1010;">
+            <span id="imageInfo" class="empty:opacity-5 bg-black"></span>
+        </div>
         <div id="fileList" class="  bg-gray-100 text-left p-4 flex flex-col items-start gap-2 pt-[100px]">
         </div>
         <div id="macroview" class="border-solid">

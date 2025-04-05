@@ -32,6 +32,7 @@ Neutralino.events.on("ready", async () => {
     document
         .getElementById("new-shortcut")
         .addEventListener("click", (ev) => recordTableShortcut(ev.target));
+    const parentContainer = document.getElementById('image-wrapper');
     document.getElementById("fullscreenButton").addEventListener("click", () => {
         (async () => {
             await Neutralino.window.setFullScreen()
@@ -188,7 +189,7 @@ function setupCommandList() {
         console.log(JSON.stringify(items));
         for (let i in items) {
             console.log(JSON.stringify(items[i]))
-            console.log(i)
+
             const tr = document.createElement("tr");
 
             // Editable Checkbox

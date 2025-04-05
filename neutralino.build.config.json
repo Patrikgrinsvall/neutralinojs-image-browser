@@ -1,4 +1,4 @@
-{
+  {
   "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
   "applicationId": "js.neutralino.imbr",
   "version": "1.0.0",

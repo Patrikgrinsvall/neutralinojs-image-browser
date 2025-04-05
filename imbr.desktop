@@ -9,4 +9,4 @@ Terminal=false
 Type=Application
 MimeType=inode/directory
 Comment="image Browser and Rater"
-Categories=Images;Media;Photo;
+Categories="Viewer"
